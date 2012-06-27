@@ -1,0 +1,25 @@
+<html>
+	<script type="text/javascript" src="underscore.js"></script>
+	<script type="text/javascript" src="backbone.js"></script>
+	<script type="text/javascript" src="backbone-super.js"></script>
+	<script type="text/javascript">
+		var Shape = Backbone.Model.extend({
+			initialize: function(type) {
+				this.type = type;
+			},
+			test: function() {
+				alert(this.type);
+			}
+		});
+		
+		var Rectangle = Shape.extend({
+			initialize: function() {
+				this._super("4-sided");
+			}
+		});
+		
+		var r = new Rectangle();
+		r.test();
+	</script>
+	<body></body>
+</html>
