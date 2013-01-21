@@ -38,7 +38,7 @@
 				// Check if we're overwriting an existing function
 				if (typeof protoProps[name] == "function" &&  typeof _super[name] == "function" && fnTest.test(protoProps[name])) {
 					child.prototype[name] = (function(name, fn) {
-						return function() {
+						var wrapper = function() {
 							var tmp = this._super;
 
 							// Add a new ._super() method that is the same method
@@ -52,6 +52,14 @@
 
 							return ret;
 						};
+
+						//we must move properties from old function to new
+						for (var prop in fn) {
+							wrapper[prop] = fn[prop];
+							delete fn[prop];
+						}
+						
+						return wrapper;
 					})(name, protoProps[name]);
 				}
 			}
