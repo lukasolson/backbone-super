@@ -36,14 +36,18 @@
 			// Copy the properties over onto the new prototype
 			for (var name in protoProps) {
 				// Check if we're overwriting an existing function
-				if (typeof protoProps[name] == "function" &&  typeof _super[name] == "function" && fnTest.test(protoProps[name])) {
+				if (typeof protoProps[name] == "function" &&  fnTest.test(protoProps[name])) {
+					var superMethod = _super[name];
+					if (!superMethod) {
+						superMethod = ctor;
+					}
 					child.prototype[name] = (function(name, fn) {
 						var wrapper = function() {
 							var tmp = this._super;
 
 							// Add a new ._super() method that is the same method
 							// but on the super-class
-							this._super = _super[name];
+							this._super = superMethod;
 
 							// The method only need to be bound temporarily, so we
 							// remove it when we're done executing
