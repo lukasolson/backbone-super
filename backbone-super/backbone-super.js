@@ -7,6 +7,7 @@
 		child.extend = this.extend;
 		return child;
 	};
+	var unImplementedSuper = function(){throw "Super does not implement this method";}; 
 
 	var ctor = function(){}, inherits = function(parent, protoProps, staticProps) {
 		var child, _super = parent.prototype, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
@@ -39,7 +40,7 @@
 				if (typeof protoProps[name] == "function" &&  fnTest.test(protoProps[name])) {
 					var superMethod = _super[name];
 					if (!superMethod) {
-						superMethod = ctor;
+						superMethod = unImplementedSuper;
 					}
 					child.prototype[name] = (function(name, fn) {
 						var wrapper = function() {
