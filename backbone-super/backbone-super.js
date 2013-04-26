@@ -7,7 +7,7 @@
 		child.extend = this.extend;
 		return child;
 	};
-	var unImplementedSuper = function(){throw "Super does not implement this method";}; 
+	var unImplementedSuper = function(method){throw "Super does not implement this method: " + method;}; 
 
 	var ctor = function(){}, inherits = function(parent, protoProps, staticProps) {
 		var child, _super = parent.prototype, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
@@ -38,17 +38,13 @@
 			for (var name in protoProps) {
 				// Check if we're overwriting an existing function
 				if (typeof protoProps[name] == "function" &&  fnTest.test(protoProps[name])) {
-					var superMethod = _super[name];
-					if (!superMethod) {
-						superMethod = unImplementedSuper;
-					}
 					child.prototype[name] = (function(name, fn) {
 						var wrapper = function() {
 							var tmp = this._super;
 
 							// Add a new ._super() method that is the same method
 							// but on the super-class
-							this._super = superMethod;
+							this._super = _super[name] || unImplementedSuper(name);
 
 							// The method only need to be bound temporarily, so we
 							// remove it when we're done executing
