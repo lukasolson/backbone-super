@@ -1,0 +1,20 @@
+{
+  "name": "backbone-super",
+  "version": "1.0.0",
+  "description": "A convenient super method for the popular JavaScript library, Backbone.js.",
+  "author": "Lukas Olson <olson.lukas@gmail.com>",
+  "jam": {
+    "include": [
+      "backbone-super/backbone-super.js",
+      "README.md",
+      "LICENSE"
+    ],
+    "dependencies": {
+      "backbone": "> 0.9"
+    },
+    "main": "backbone-super/backbone-super.js",
+    "shim": {
+      "deps": ["backbone"]
+    }
+  }
+}
