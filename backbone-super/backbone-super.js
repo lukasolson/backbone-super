@@ -18,11 +18,11 @@
 		if (protoProps && protoProps.hasOwnProperty('constructor')) {
 			child = protoProps.constructor;
 		} else {
-			child = function(){ parent.apply(this, arguments); };
+			child = function(){ return parent.apply(this, arguments); };
 		}
 
 		// Inherit class (static) properties from parent.
-		_.extend(child, parent);
+		_.extend(child, parent, staticProps);
 
 		// Set the prototype chain to inherit from `parent`, without calling
 		// `parent`'s constructor function.
