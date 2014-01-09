@@ -1,0 +1,25 @@
+{
+  "name": "backbone-super",
+  "version": "1.0.0",
+  "homepage": "https://github.com/lukasolson/backbone-super",
+  "authors": [
+    "Lukas Olson <olson.lukas@gmail.com>"
+  ],
+  "description": "A convenient super method for the popular JavaScript library, Backbone.js.",
+  "main": "backbone-super/backbone-super.js",
+  "keywords": [
+    "backbone",
+    "super"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "> 0.9"
+  }
+}
