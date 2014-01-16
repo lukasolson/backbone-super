@@ -10,7 +10,7 @@
 	var unImplementedSuper = function(method){throw "Super does not implement this method: " + method;}; 
 
 	var ctor = function(){}, inherits = function(parent, protoProps, staticProps) {
-		var child, _super = parent.prototype, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+		var child, _super = parent.prototype, fnTest = /\b_super\b/;
 
 		// The constructor function for the new subclass is either defined by you
 		// (the "constructor" property in your `extend` definition), or defaulted
