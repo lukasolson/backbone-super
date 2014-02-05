@@ -6,7 +6,7 @@ Usually, when you're using Backbone.js, you have to do some funky (well, not fun
 
 From the Backbone.js documentation:
 
-> Brief aside on super: JavaScript does not provide a simple way to call super � the function of the same name defined higher on the prototype chain. If you override a core function like set, or save, and you want to invoke the parent object's implementation, you'll have to explicitly call it, along these lines:
+> Brief aside on super: JavaScript does not provide a simple way to call super — the function of the same name defined higher on the prototype chain. If you override a core function like set, or save, and you want to invoke the parent object's implementation, you'll have to explicitly call it, along these lines:
 
 > ```javascript
 var Note = Backbone.Model.extend({
