@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8">
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="underscore.js"></script>
+	<script type="text/javascript" src="backbone.js"></script>
+	<script type="text/javascript" src="backbone-super.js"></script>
+	<script type="text/javascript">
+
+		var ShapeModel = Backbone.Model.extend({
+			defaults: {
+				color: "#3333FF"
+			}
+		});
+
+		var ShapeView = Backbone.View.extend({
+			attributes: {
+				"class": "shape"
+			},
+
+			events: {
+				"click":	"onClick"
+			},
+
+			render:function() {
+				this.$el.css({
+					width:  "100px",
+					height: "100px"
+				});
+				return this;
+			},
+
+			onClick: function() {
+				this.$el.css({
+					background: this.model.get("color")
+				});
+			}
+		});
+
+		var SquareModel = ShapeModel.extend({
+			defaults: {
+				"altcolor": "#FF3333"
+			}
+		});
+
+		var Square = ShapeView.extend({
+			// extended attributes
+			attributes: {
+				"tabindex":   1
+			},
+
+			// extended events
+			events: {
+				"focus": "onFocus",
+				"blur":  "onBlur"
+			},
+
+			// rewrite render event
+			render: function() {
+				this._super();
+				this.$el.css({ border: "2px solid "+this.model.get("color") });
+				return this;
+			},
+
+			onFocus: function() {
+				this.$el.css({ "border-color": this.model.get("altcolor") });
+			},
+
+			onBlur: function() {
+				this.$el.css({ "border-color": this.model.get("color") });
+			}
+		});
+
+		$(function() {
+			var square = new Square({ model: new ShapeModel() });
+			$("body").append(square.render().el);
+		});
+	</script>
+	</head>
+	<body>
+		<p>Press tab to focus on the shape or click on it to change its background color</p>
+	</body>
+</html>
