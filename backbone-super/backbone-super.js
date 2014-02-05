@@ -66,6 +66,10 @@
 						return wrapper;
 					})(name, protoProps[name]);
 				}
+				// extend property objects
+				else if (typeof protoProps[name] == "object") {
+					child.prototype[name] = _.extend(_super[name] || {}, protoProps[name]);
+				}
 			}
 		}
 
