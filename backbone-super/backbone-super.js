@@ -5,24 +5,24 @@
 
   // Set up Backbone appropriately for the environment. Start with AMD.
   if (typeof define === 'function' && define.amd) {
-    define(['underscore', 'backbone', 'jquery', 'exports'], function(_, Backbone, $, exports) {
+    define(['underscore', 'backbone'], function(_, Backbone) {
       // Export global even in AMD case in case this script is loaded with
       // others that may still expect a global Backbone.
-      root.BackboneSuper = factory(root, exports, _, Backbone, $);
+      factory( _, Backbone);
     });
 
-  // Next for Node.js or CommonJS. jQuery may not be needed as a module.
+  // Next for Node.js or CommonJS.
   } else if (typeof exports !== 'undefined') {
-    var _ = require('underscore');
-    var Backbone = require('backbone');
-    factory(root, exports, _, Backbone);
+    var _ = require('underscore'),
+		Backbone = require('backbone');
+    factory(_, Backbone);
 
   // Finally, as a browser global.
   } else {
-    root.BackboneSuper = factory(root, {}, root._, root.Backbone, (root.jQuery || root.Zepto || root.ender || root.$));
+    factory(root._, root.Backbone);
   }
 
-}(this, function factory(root, BackboneSuper, _, Backbone, $) {
+}(this, function factory(_, Backbone) {
 	Backbone.Model.extend = Backbone.Collection.extend = Backbone.Router.extend = Backbone.View.extend = function(protoProps, classProps) {
 		var child = inherits(this, protoProps, classProps);
 		child.extend = this.extend;
@@ -102,7 +102,6 @@
 		return child;
 	};
 
-	BackboneSuper.inherits = inherits;
-	return BackboneSuper;
+	return inherits;
 }));
 
