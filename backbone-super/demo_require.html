@@ -1,0 +1,39 @@
+<html>
+	<script type="text/javascript" src="http://requirejs.org/docs/release/2.1.11/comments/require.js"></script>
+	<script type="text/javascript">
+		'use strict';
+
+		require.config({
+			paths: {
+				jquery: 	'http://code.jquery.com/jquery-1.11.0',
+				underscore: 'http://underscorejs.org/underscore',
+				backbone: 	'http://backbonejs.org/backbone'
+			}
+		});
+
+		require([
+			'backbone',
+			'backbone-super'
+		], function (Backbone) {
+
+			var Shape = Backbone.Model.extend({
+				initialize: function(type) {
+					this.type = type;
+				},
+				test: function() {
+					alert(this.type);
+				}
+			});
+
+			var Rectangle = Shape.extend({
+				initialize: function() {
+					this._super("4-sided");
+				}
+			});
+
+			var r = new Rectangle();
+			r.test();
+		});
+	</script>
+	<body></body>
+</html>
