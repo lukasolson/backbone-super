@@ -30,8 +30,38 @@
 	};
 	var unImplementedSuper = function(method){throw "Super does not implement this method: " + method;};
 
+  var fnTest = /\b_super\b/;
+
+  var makeWrapper = function(parentProto, name, fn) {
+    var wrapper = function() {
+      var tmp = this._super;
+
+      // Add a new ._super() method that is the same method
+      // but on the super-class
+      this._super = parentProto[name] || unImplementedSuper(name);
+
+      // The method only need to be bound temporarily, so we
+      // remove it when we're done executing
+      var ret;
+      try {
+        ret = fn.apply(this, arguments);
+      } finally {
+        this._super = tmp;
+      }
+      return ret;
+    };
+
+    //we must move properties from old function to new
+    for (var prop in fn) {
+      wrapper[prop] = fn[prop];
+      delete fn[prop];
+    }
+
+    return wrapper;
+  };
+
 	var ctor = function(){}, inherits = function(parent, protoProps, staticProps) {
-		var child, _super = parent.prototype, fnTest = /\b_super\b/;
+        var child, parentProto = parent.prototype;
 
 		// The constructor function for the new subclass is either defined by you
 		// (the "constructor" property in your `extend` definition), or defaulted
@@ -47,7 +77,7 @@
 
 		// Set the prototype chain to inherit from `parent`, without calling
 		// `parent`'s constructor function.
-		ctor.prototype = parent.prototype;
+		ctor.prototype = parentProto;
 		child.prototype = new ctor();
 
 		// Add prototype properties (instance properties) to the subclass,
@@ -58,34 +88,8 @@
 			// Copy the properties over onto the new prototype
 			for (var name in protoProps) {
 				// Check if we're overwriting an existing function
-				if (typeof protoProps[name] == "function" &&  fnTest.test(protoProps[name])) {
-					child.prototype[name] = (function(name, fn) {
-						var wrapper = function() {
-							var tmp = this._super;
-
-							// Add a new ._super() method that is the same method
-							// but on the super-class
-							this._super = _super[name] || unImplementedSuper(name);
-
-							// The method only need to be bound temporarily, so we
-							// remove it when we're done executing
-							var ret;
-							try {
-								ret = fn.apply(this, arguments);
-							} finally {
-								this._super = tmp;
-							}
-							return ret;
-						};
-
-						//we must move properties from old function to new
-						for (var prop in fn) {
-							wrapper[prop] = fn[prop];
-							delete fn[prop];
-						}
-
-						return wrapper;
-					})(name, protoProps[name]);
+				if (typeof protoProps[name] == "function" && fnTest.test(protoProps[name])) {
+					child.prototype[name] = makeWrapper(parentProto, name, protoProps[name]);
 				}
 			}
 		}
@@ -97,7 +101,7 @@
 		child.prototype.constructor = child;
 
 		// Set a convenience property in case the parent's prototype is needed later.
-		child.__super__ = parent.prototype;
+		child.__super__ = parentProto;
 
 		return child;
 	};
