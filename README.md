@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lukasolson/backbone-super.svg)](https://travis-ci.org/lukasolson/backbone-super)
+
 # Backbone-Super
 
 This Backbone.js plugin provides a convenient super method.
