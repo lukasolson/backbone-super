@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "description": "A convenient super method for the popular JavaScript library, Backbone.js.",
   "author": "Lukas Olson <olson.lukas@gmail.com>",
+  "main": "./backbone-super/backbone-super.js",
   "jam": {
     "include": [
       "backbone-super/backbone-super.js",
