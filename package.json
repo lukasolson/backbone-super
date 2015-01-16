@@ -1,6 +1,6 @@
 {
   "name": "backbone-super",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A convenient super method for the popular JavaScript library, Backbone.js.",
   "author": "Lukas Olson <olson.lukas@gmail.com>",
   "main": "./backbone-super/backbone-super.js",
