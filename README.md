@@ -36,3 +36,6 @@ To use it, simply include it after you include Backbone.js:
 <script type="text/javascript" src="backbone.js"></script>
 <script type="text/javascript" src="backbone-super.js"></script>
 ```
+
+License: MIT
+

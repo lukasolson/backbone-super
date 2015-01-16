@@ -3,6 +3,10 @@
   "version": "1.0.3",
   "description": "A convenient super method for the popular JavaScript library, Backbone.js.",
   "author": "Lukas Olson <olson.lukas@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lukasolson/backbone-super"
+  },
   "main": "./backbone-super/backbone-super.js",
   "jam": {
     "include": [
@@ -33,5 +37,9 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/nodeunit tests/*"
-  }
+  },
+  "licenses": [{
+    "type": "MIT",
+    "url": "https://github.com/lukasolson/backbone-super/blob/master/LICENSE"
+  }]
 }
