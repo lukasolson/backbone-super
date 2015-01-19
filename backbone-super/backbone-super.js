@@ -12,7 +12,7 @@
     });
 
   // Next for Node.js or CommonJS.
-  } else if (typeof exports !== 'undefined') {
+  } else if (typeof exports !== 'undefined' && typeof require === 'function') {
     var _ = require('underscore'),
 		Backbone = require('backbone');
     factory(_, Backbone);
