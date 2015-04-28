@@ -1,3 +1,10 @@
 language: node_js
 node_js:
   - "0.10"
+before_script:
+  - git clone https://github.com/jashkenas/backbone.git
+  - cd backbone
+  - npm install
+  - cd ..
+after_script:
+  - rm -rf backbone
